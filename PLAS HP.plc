@@ -1,0 +1,184 @@
+... clamp down equations and adjust parameters as needed - we do this by multiplying the equation by 0 
+..mRNAs
+
+..HMGCR mRNA
+R_HM' = r1 * P_SR  - r2 * R_HM 
+
+..FDPS mRNA
+R_FDPS' = r3 * P_SR  - r4 * R_FDPS 
+
+..Lanosterol synthase mRNA
+R_LS' = r5* P_SR  - r6 * R_LS
+
+..Squalene Synthase mRNA 
+R_SQS' = r7 * P_SR  - r8 * R_SQS  
+
+
+..Proteins
+
+..SREBP
+P_SR' = r9 * C ^ a22 - r10 * P_SR 
+
+..HMG CoA Reductase
+P_HR' = r11 * R_HM  - r12 * P_HR  * GPP ^ a5 * FPP ^ a6 * L ^ a7 * C ^ a8 
+
+.. Farnesyl diphosphate synthase 
+P_FDPS' = r13 * R_FDPS  - r14 * P_FDPS 
+
+..Lanosterol Synthase 
+P_LS' = r15 * R_LS  - r16 * P_LS 
+
+..Squalene Synthase
+P_SQS' = r17 * R_SQS  - r18 * P_SQS * C  
+
+
+..Metabolites
+
+..HMGCoA
+HC' = (r19 - r20 *  HC  * P_HR^ a10 *  P_FDPS ^ a25) * SF
+
+..Geranyl-PP
+GPP' =  (r20 *  HC   * P_HR ^ a10 * P_FDPS ^ a25 - r21 * GPP  * P_FDPS ^ a29 - r33 * GPP) * SF
+
+..Farnesyl- PP
+FPP' =  (r21 * GPP * P_FDPS ^ a29  - r22 * FPP - r23 * FPP * P_SQS ^ a24) * SF
+
+..squalene
+SQ' = (r23  FPP * P_SQS ^ a24 - r24 *  SQ * P_LS ^ a32) * SF 
+
+..lanesterol
+L' = (r24  * SQ * P_LS ^ a32  - r25 *  L ) * SF 
+
+..cholesterol
+C' =   (r25 * L  + r26 - r27 * C - r28 * C ^ aPL +   r30 * CP +r35 *CE ) * SF
+CP' = r28 * C ^ aPL - r30 * CP - r31 * CP + r32
+
+SF = 1000/23
+..change 25 to value we want 
+ 
+
+mRNAs
+R_HM = 100 
+R_FDPS = 100
+R_LS = 100 
+R_SQS = 100
+
+Enzymes/Proteins
+P_SR = 100 
+P_HR = 100 		
+P_FDPS =100 
+P_LS = 100
+P_SQS = 100
+
+Metabolites
+HC = 29.08138
+GPP = 88.89034
+FPP = 70.88889
+SQ = 73.48281
+L = 76.90346
+C = 10993.27
+CP = 5608.411
+CE =1000
+
+
+
+
+.. DIET 
+DL  = 0* ((646.57959/VL) / 24) * 0.5  
+DP = 0 *  ((646.57959/VP) / 24) * 0.5  
+..D = 0 
+
+
+============================
+..liver volume (L) 
+VL = 1.93
+
+..plasma volume (L) 
+
+VP = 3.2 
+
+============================
+r9 = 1150
+r1 = 0.0012 * DE
+r7 = 0.0012 * DE
+r11 = 0.0023
+r17 = 0.0023
+r19 = 3300 * 5.5
+r20 = 6.9 * 5.68
+r21 = 6.2 * 5.68
+r23 = 0.017 * 5.68
+r24 = 0.011 * 5.65 
+r25 = 0.4005
+r3 = 0.0012 * DE
+r13 = 0.0017
+r5 = 0.0012 * DE
+r15 = 0.0023
+
+r10 = 0.0023
+r2 = 0.0012
+r8 = 0.0012
+r12 = 1.9E-7
+r18 = 4.7E-7
+r22 = 45 * 5.68
+r28 = 0.35 * ( 10993.27 ^(1-aPL)) * DE
+r35 = 0.0001
+
+r4 = 0.0012
+r14 = 0.0023
+r6 = 0.0012
+r16 = 0.0023
+
+
+..NEW
+..DIET 
+..(200mg or 0.2g/day)= 517.26
+..0.4g/day = 1030
+..0.6g/day = 1552
+
+r26 = (517.26/SF)/VL 
+r27 = 0.000356 * DEP 
+..output to cholesterol 
+r30 = 0.7 * DEP 
+r33 = 1.6E-6 * 5.68
+..assume 50-80% absorption 
+r31 = 0.006
+r32 = 0.6
+
+..dioxin effect
+DE= 1
+DEP = 1
+
+
+
+============================
+..KINETIC ORDERS 
+
+a5= 0.5
+a6= 0.5
+a7 = 0.5
+a8 = 0.5
+a10 = 0.5
+a22 = -1
+a24 = 0.5
+a25 = 0.5
+a29 = 0.5
+a32 = 0.5
+aPL= 0.5
+
+
+
+============================
+..!! C CP 
+!! HC GPP FPP SQ L C CP 
+..!! HC GPP FPP SQ L C S P_SR P_HR P_FDPS P_SQS P_LS R_HM R_FDPS R_LS R_SQS
+
+
+..C  L SQ GPP FPP 
+..  HR S  P_LS  P_SQS 
+
+.. R_HM HR S R_FDPS P_FDPS R_SQS P_SQS R_LS P_ LS DioxinEffect X1
+
+
+t0= 0
+tf = 60000
+hr= 1
