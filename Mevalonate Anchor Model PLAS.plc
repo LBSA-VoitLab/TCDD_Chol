@@ -1,0 +1,196 @@
+Differential Equations
+----------------------
+mRNAs
+
+HMGCR mRNA
+HMr' = r1 * SRp  - r2 * HMr
+
+FDPS mRNA
+FDPSr' = r3 * SRp  - r4 * FDPSr 
+
+Lanosterol Synthase mRNA
+LSr' = r5* SRp  - r6 * LSr
+
+Squalene Synthase mRNA 
+SQSr' = r7 * SRp  - r8 * SQSr 
+
+
+Proteins
+
+SREBP
+SRp' = r9 * C ^ a6 - r10 * SRp 
+
+HMG CoA Reductase
+HRp' = r11 * HMr  - r12 * HRp  * GPP ^ a1 * FPP ^ a2 * L ^ a3 * C ^ a4 
+
+Farnesyl Diphosphate Synthase 
+FDPSp' = r13 * FDPSr  - r14 * FDPSp 
+
+Lanosterol Synthase 
+LSp' = r15 * LSr  - r16 * LSp
+
+Squalene Synthase
+SQSp' = r17 * SQSr  - r18 * SQSp * C  
+
+
+Metabolites
+
+HMGCoA
+HC' = (r19 - r20 *  HC  * HRp^ a5 *  FDPSp ^ a8) * SF
+
+Geranyl-PP
+GPP' =  (r20 *  HC   * HRp ^ a5 * FDPSp ^ a8 - r21 * GPP  * FDPSp ^ a9 - r32 * GPP) * SF
+
+Farnesyl- PP
+FPP' =  (r21 * GPP * FDPSp ^ a9  - r22 * FPP - r23 * FPP * SQSp ^ a7) * SF
+
+Squalene
+SQ' = (r23  FPP * SQSp ^ a7 - r24 *  SQ * LSp ^ a10) * SF 
+
+Lanesterol
+L' = (r24  * SQ * LSp ^ a10  - r25 *  L ) * SF 
+
+Hepatic Cholesterol
+C' =   (r25 * L  + r26 - r27 * C - r28 * C ^ a11 +   r29 * CP + r33 *S - r34 * C) * SF
+
+Plasma Cholesterol 
+CP' = r28 * C ^ a11 - r29 * CP - r30 * CP + r31
+
+Cholesterol Storage 
+S' = r34 * C - r33* S
+
+
+ 
+
+Timescale factor
+----------------
+
+SF = 1000/23
+
+ 
+Initial Values
+--------------
+
+mRNAs
+HMr = 100 
+FDPSr = 100
+LSr = 100 
+SQSr = 100
+
+Enzymes/Proteins
+SRp = 100 
+HRp = 100 		
+FDPSp =100 
+LSp = 100
+SQSp = 100
+
+Metabolites
+HC = 29.08138
+GPP = 88.89034
+FPP = 70.88889
+SQ = 73.48281
+L = 76.90346
+C = 10993.27
+CP = 5608.411
+S = 2000
+
+Parameter Values
+----------------
+
+VL = 1.93	// liver volume (L)
+VP = 3.2 	// plasma volume (L) 
+
+Rate Constants
+r1 = 0.0012 * DEN
+r2 = 0.0012
+r3 = 0.0012 * DEN
+r4 = 0.0012
+r5 = 0.0012 * DEN
+r6 = 0.0012
+r7 = 0.0012 * DEN
+r8 = 0.0012
+r9 = 1150
+r10 = 0.0023
+r11 = 0.0023
+r12 = 1.9E-7
+r13 = 0.0017 
+r14 = 0.0023
+r15 = 0.0023
+r16 = 0.0023
+r17 = 0.0023
+r18 = 4.7E-7
+r19 = 18150
+r20 = 39.192
+r21 = 35.216
+r22 = 255.6
+r23 = 0.09656
+r24 = 0.06215 
+r25 = 0.4005
+
+Diet
+This is accounted for by the term r26
+Normal Diet is considered as 200 mg/day, which corresponds to a micromole/day level of 517.26
+High cholesterol diet: 400 mg/day, corresponding to 1030
+Extremely high cholesterol diet: 600 mg/day, corresponding to  1552
+r26 = (517.26/SF)/ VL
+
+Cholesterol to Bile
+r27 = 0.000356 * DEP 
+
+Interaction with Plasma 
+vHP
+r28 = 36.697 * DEN
+VPH
+r29 = 0.7 * DEP 
+
+r30 = 0.006 
+r31 = 0.6
+r32 = 0.000009
+
+Cholesterol Storage
+vHS
+r33 = 0.00025  * DEN
+vHS
+r34 = 0.00001* 0.5  * DEN
+
+
+
+Kinetic Orders
+a1= 0.5
+a2= 0.5
+a3 = 0.5
+a4 = 0.5
+a5= 0.5 
+a6= -1
+a7 = 0.5
+a8 = 0.5
+a9 = 0.5
+a10 = 0.5 
+a11= 0.5 
+
+
+
+Specific Simulation Settings
+----------------------------
+
+Dioxin Effect
+DEP = 1	// positive effect as a percent increase 
+DEN = 1    // negative effect as a percent decrease
+Example: To account for a 10% change we set DEP = 1.1 and DEN = 0.9 simultaneously 
+
+
+
+
+
+Variables to be Outputted
+-------------------------
+!! C CP
+..!! HC GPP FPP SQ L C CP 
+
+
+Solution Parameters
+-------------------
+
+t0= 0
+tf = 60000
+hr= 1
