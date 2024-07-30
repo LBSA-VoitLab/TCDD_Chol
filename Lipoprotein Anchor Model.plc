@@ -1,0 +1,103 @@
+Hepatic Cholesterol 
+HC' = c1*HC ^ k1 - c2 * HC * ACAT ^ k1 - c3 * HC - c5 * HC + c6 * VLDL + c7 * IDL + c8 * LDL + c9 * HDL + r26 + c4 * Cstor
+
+VLDL' = c5 * HC - c6 * VLDL - c10 * VLDL * LPL ^ k2 + c12 * HDL 
+
+IDL' = c10 * VLDL * LPL ^ k2  - c7 * IDL - c21 * IDL
+
+LDL' = c11 * HDL - c8 * LDL + c21 * IDL - c22 * LDL 
+
+HDL' = c13  * LCAT ^ k3 - c9 * HDL - c11 * HDL - c12 * HDL 
+
+Cholesterol Storage 
+Cstor' = c2 * HC * ACAT ^ k1 - c4 * Cstor
+
+ACAT' = c15 -c16 * ACAT
+LPL' = c17 -c18 * LPL
+LCAT' = c19 -c20 * LCAT 
+
+
+Initial Values
+--------------
+
+mRNAs 
+ACAT = 100
+LPL = 100
+LCAT = 100
+
+
+Lipoproteins 
+HC=  11638
+VLDL = 775.9
+IDL = 387.95
+LDL = 2586.32
+HDL = 1293.16
+Cstor = 4138.1094
+
+
+
+Parameter Values
+----------------
+Rate Constants 
+
+c1 = 968.06* DEN 
+c2 = 0.14154 * DEM
+c3 = 9 * DEM
+c4 = 3.98
+c5 = 0.000803 * DEN 
+c6 = 0.0084 * DEP
+c7 = 0.0091 * DEP
+c8 = 0.015375 * DEP
+c9 = 0.000026 * DEP
+c10 = 0.007 * DEP
+c11 = 0.000027*1000000
+c12 = 0.00003978*1000
+c13 = 3497 * DEP
+c14 = 0.5
+c15 = 100
+c16 = 1
+c17 = 100
+c18 = 1
+c19 = 100
+c20 = 1
+c21 = 0.131 * DEP
+c22 = 13.505
+
+
+
+k1= 0.5
+k2 = 0.5
+k3 = 0.5 
+k4 = 0.5
+k5 = 0.5
+
+
+
+
+r26 = 517.26/ VL
+VL = 1.93	// liver volume (L)
+
+Specific Simulation Settings
+----------------------------
+
+Dioxin Effect
+DEP = 1
+..1.1	// positive effect as a percent increase 
+DEN =1
+.. 0.9   // negative effect as a percent decrease
+DEM =1 // negative effect as a percent decrease used to callibrate to mevalonate anchor model DR curve at 30 ug/kg
+.. 0.8
+Example: To account for a 10% change we set DEP = 1.1 and DEN = 0.9 simultaneously
+
+
+
+Total Cholesterol
+TC = HDL + VLDL + IDL + LDL  
+
+!! TC HC HDL LDL
+Solution Parameters
+-------------------
+
+t0= 0
+tf = 6000
+hr= 1

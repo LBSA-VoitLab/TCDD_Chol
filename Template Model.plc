@@ -1,0 +1,100 @@
+Template Model 
+Hepatic Cholesterol
+Chep' =  vBS * DietL ^ -0.1 * Cstor^ -0.1 * Cpt ^ -0.1 + DietL +  v_pl2 * Cpla* Cpt ^ a4 - v_d * Chep *  DietL ^ 0.1  +  v_p* Cstor  * Cpt ^ a3 * DietL ^ -0.5    - v_s * Chep   - v_p14 * Chep
+
+Storage
+ ..Cstor' = 0
+Cstor' = v_s * Chep   - v_p * Cstor  * Cpt ^ a3 * DietL ^ -0.5
+
+Peripheral Tissue Usage 
+..Cpt' = 0 
+Cpt' = v_pl1 * Cpla - v_pt * Cpt  - v_ptt *Cpt 
+
+Cholesterol Transport Plasma 
+..Cpla' = 0 
+Cpla' = v_pt * Cpt - v_pl1 * Cpla - v_pl2 * Cpla  * Cpt ^ a4 + v_d * Chep *  DietL ^ 0.5  - v_pl3 * Cpla * DietL ^ 0.5
+
+Estrogen Synthesis 
+..Ces' = 0 
+Ces' = v_pl3 * Cpla * DietL ^ 0.5  - v_es * Ces
+
+
+
+Initial Values
+--------------
+
+Chep = 18150
+Cstor = 0.56
+Cpt = 266.026
+Cpla = 3266.373
+Cd = 517.26/1.93
+Ces= 1.34
+
+
+Parameter Values
+vBS = 20955300 * DEN 
+..1280000
+v_pl1  = 1506 *DEP
+v_pl3  = 6667 * 0.2 
+..1998 * 0.2 * DEN 
+v_pt = 77.32  * 0.2 * DEP
+v_ptt = 18460 *DEN
+v_es  = 53200000 
+..v_d1  = 60.61 
+v_d  = 259.81 * DEP
+v_s  = 0.0000248 *0.2 * DEP 
+v_p  = 2.5425 *1.8 * DEN 
+v_pl2  = 10.33  * 1.8 * DEP
+v_p14 = 0.72 * 0.2 * DEN 
+
+
+Diet
+This is accounted for by the term Diet
+Normal Diet is considered as 200 mg/day, which corresponds to a micromole/day level of 517.26
+High cholesterol diet: 400 mg/day, corresponding to 1030
+Extremely high cholesterol diet: 600 mg/day, corresponding to  1552
+DietL =  517.26/  1.93
+VL = 1.93	// liver volume (L)
+
+
+
+--------------
+ 
+
+
+
+
+kinetic orders
+a2 = 0.5
+a3 = -0.1
+a4 = 0.5   
+
+
+
+
+
+
+
+
+
+
+
+Dioxin Effect
+DEP = 1	// positive effect as a percent increase 
+DEN = 1 // negative effect as a percent decrease
+
+
+..Note: DEP of 1.3 and DEN of 0.7 gives us appx 50% biosynthesis rate which correlates to dioxin dose 10 ug/kg
+..DEP of 1.5 and DEN 0.5 gives us 20 ug/kg
+..DEP of 1.55 and DEN 0.45 gives us 30 ug/kg
+..DEP of 1.65 and DEN 0.35 gives us 40 ug/kg
+..DEP of 1.7 and DEN 0.3 gives us 50 ug/kg 
+
+..!! Cpt Ces Chep Cd Cstor Cpla Ces
+
+Solution Parameters
+-------------------
+
+t0= 0
+tf = 6000
+hr= 1
