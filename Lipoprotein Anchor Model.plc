@@ -77,7 +77,11 @@ k3 = 0.5
 
 
 
-
+Diet
+This is accounted for by the term r26
+Normal Diet is considered as 200 mg/day, which corresponds to a micromole/day level of 517.26
+High cholesterol diet: 400 mg/day, corresponding to 1030
+Extremely high cholesterol diet: 600 mg/day, corresponding to  1552
 r26 = 517.26/ VL
 VL = 1.93	// liver volume (L)
 
